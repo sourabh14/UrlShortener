@@ -1,6 +1,6 @@
 package com.example.UrlShortener.url.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUrlShortLinkRequest {
-    @NotEmpty
+public class CreateShortUrlRequest {
+    @Pattern(regexp = "^(https?://[^\\s/$.?#].[^\\s]*)$", message = "Invalid URL format")
     private String url;
-    private String domain;
 }

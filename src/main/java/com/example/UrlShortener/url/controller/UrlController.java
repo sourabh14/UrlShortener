@@ -1,7 +1,7 @@
 package com.example.UrlShortener.url.controller;
 
-import com.example.UrlShortener.url.dto.CreateUrlShortLinkRequest;
-import com.example.UrlShortener.url.dto.CreateUrlShortLinkResponse;
+import com.example.UrlShortener.url.dto.CreateShortUrlRequest;
+import com.example.UrlShortener.url.dto.CreateShortUrlResponse;
 import com.example.UrlShortener.url.service.UrlService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,9 +20,9 @@ public class UrlController {
     private final UrlService urlService;
 
     @PostMapping("/create")
-    public ResponseEntity<CreateUrlShortLinkResponse> createShortLink(@Valid @RequestBody CreateUrlShortLinkRequest request)
+    public ResponseEntity<CreateShortUrlResponse> createShortLink(@Valid @RequestBody CreateShortUrlRequest request)
             throws BadRequestException {
-        CreateUrlShortLinkResponse response = urlService.createUrlShortLink(request);
+        CreateShortUrlResponse response = urlService.createShortUrl(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUrlShortLinkResponse {
+public class CreateShortUrlResponse {
     private String  shortenedUrl;
     private String  url;
-    private Date    createdAt;
 }
