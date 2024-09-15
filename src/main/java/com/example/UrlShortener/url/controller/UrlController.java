@@ -8,10 +8,8 @@ import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/api/v1/url")
@@ -20,10 +18,21 @@ public class UrlController {
     private final UrlService urlService;
 
     @PostMapping("/create")
-    public ResponseEntity<CreateShortUrlResponse> createShortLink(@Valid @RequestBody CreateShortUrlRequest request)
+    public ResponseEntity<CreateShortUrlResponse> createShortUrl(@Valid @RequestBody CreateShortUrlRequest request)
             throws BadRequestException {
         CreateShortUrlResponse response = urlService.createShortUrl(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("{key}}")
+    public ResponseEntity<RedirectView> getLongUrl(@Valid @PathVariable("key") String key) {
+        RedirectView redirectView = new RedirectView();
+        String longUrl = urlService.getLongUrl(key);
+        if (longUrl != null) {
+            redirectView.setUrl(longUrl);
+            return new ResponseEntity<>(redirectView, HttpStatus.MOVED_PERMANENTLY);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

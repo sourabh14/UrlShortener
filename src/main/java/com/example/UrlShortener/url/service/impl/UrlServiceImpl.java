@@ -47,4 +47,9 @@ public class UrlServiceImpl implements UrlService {
         }
     }
 
+    @Override
+    public String getLongUrl(String key) {
+        return urlMap.get(BASE_URL + key);
+    }
+
 }

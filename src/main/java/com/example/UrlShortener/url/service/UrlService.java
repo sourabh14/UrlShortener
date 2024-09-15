@@ -5,4 +5,6 @@ import com.example.UrlShortener.url.dto.CreateShortUrlResponse;
 
 public interface UrlService {
     CreateShortUrlResponse createShortUrl(CreateShortUrlRequest request);
+
+    String getLongUrl(String key);
 }
