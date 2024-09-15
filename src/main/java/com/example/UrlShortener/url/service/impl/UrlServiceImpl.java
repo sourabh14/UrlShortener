@@ -15,10 +15,10 @@ import java.util.concurrent.ConcurrentMap;
 public class UrlServiceImpl implements UrlService {
     private final KeyService keyService;
     // short-url to long-url
-    private ConcurrentMap<String, String> urlMap = new ConcurrentHashMap<>();
+    private static ConcurrentMap<String, String> urlMap = new ConcurrentHashMap<>();
     // long-url to short-url
-    private ConcurrentMap<String, String> reverseUrlMap = new ConcurrentHashMap<>();
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static ConcurrentMap<String, String> reverseUrlMap = new ConcurrentHashMap<>();
+    private static final String BASE_URL = "http://localhost:8081/";
 
     @Override
     public CreateShortUrlResponse createShortUrl(CreateShortUrlRequest request) {

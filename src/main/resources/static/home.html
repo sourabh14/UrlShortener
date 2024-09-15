@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">URL Shortener</h1>
+    <div class="card">
+        <div class="card-body">
+            <form id="urlForm">
+                <div class="form-group">
+                    <label for="longUrl">Enter Long URL</label>
+                    <input type="url" class="form-control" id="longUrl" placeholder="https://www.example.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Shorten URL</button>
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Custom JS -->
+<script>
+    document.getElementById('urlForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const longUrl = document.getElementById('longUrl').value;
+        const resultDiv = document.getElementById('result');
+
+        // Simulate API call
+        fetch('http://localhost:8081/api/v1/url/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: longUrl })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.shortenedUrl) {
+                    resultDiv.innerHTML = `<div class="alert alert-success" role="alert">
+                        Shortened URL: <a href="${data.shortenedUrl}" target="_blank">${data.shortenedUrl}</a>
+                    </div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="alert alert-danger" role="alert">
+                        Error shortening URL.
+                    </div>`;
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `<div class="alert alert-danger" role="alert">
+                    Error: ${error.message}
+                </div>`;
+            });
+    });
+</script>
+</body>
+</html>
