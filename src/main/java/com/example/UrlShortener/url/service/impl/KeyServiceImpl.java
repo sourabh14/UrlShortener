@@ -1,7 +1,6 @@
 package com.example.UrlShortener.url.service.impl;
 
 import com.example.UrlShortener.url.service.KeyService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -16,7 +15,7 @@ public class KeyServiceImpl implements KeyService {
     private ConcurrentLinkedQueue<String> keyQueue;
 
     @Override
-    public Set<String> generateKeyBatch(int batchSize) {
+    public void generateKeyBatch(int batchSize) {
         // Generate keys of batchSize and add it to keyQueue
         keyQueue = new ConcurrentLinkedQueue<>();
         System.out.println("Generating keys...");
@@ -26,7 +25,11 @@ public class KeyServiceImpl implements KeyService {
             keys.add(key);
         }
         keyQueue.addAll(keys);
-        return null;
+    }
+
+    @Override
+    public int getKeyCount() {
+        return keyQueue.size();
     }
 
     @Override

@@ -3,7 +3,9 @@ package com.example.UrlShortener.url.service;
 import java.util.Set;
 
 public interface KeyService {
-    Set<String> generateKeyBatch(int batchSize);
+    void generateKeyBatch(int batchSize);
+
+    int getKeyCount();
 
     String getKey();
 }
