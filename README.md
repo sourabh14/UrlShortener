@@ -49,6 +49,7 @@ mvn test
 
 #### URL Shortener
 Visit : http://localhost:8081/url/home.html
+
 <img src="src/main/resources/images/url-shortener-ui.png" alt="url-shortener-ui" style="float: left;"/>
 
 #### URL Redirectino
